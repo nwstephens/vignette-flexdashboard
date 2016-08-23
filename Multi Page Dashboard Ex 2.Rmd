@@ -1,0 +1,49 @@
+---
+title: "Multi Page Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+
+```{r, results = "hide"}
+library(quantmod)
+library(dygraphs)
+library(DT)
+
+AAPL <- getSymbols("AAPL", auto.assign = FALSE)
+AMZN <- getSymbols("AMZN", auto.assign = FALSE)
+```
+
+Stock Prices {data-orientation=rows}
+======================================
+
+Row {data-height=80}
+-----------------------------------------------------------------------
+### Apple
+```{r}
+dygraph(Cl(AAPL))
+```
+
+Row {data-height=80}
+-----------------------------------------------------------------------
+### Amazon
+```{r}
+dygraph(Cl(AMZN))
+```
+
+Volumes {data-orientation=rows}
+======================================
+
+Row {data-height=80}
+-----------------------------------------------------------------------
+### Apple
+```{r}
+dygraph(Vo(AAPL))
+```
+
+Row {data-height=80}
+-----------------------------------------------------------------------
+### Amazon
+```{r}
+dygraph(Vo(AMZN))
+```

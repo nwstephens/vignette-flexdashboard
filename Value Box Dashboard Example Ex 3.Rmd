@@ -1,0 +1,132 @@
+---
+title: "Value Box Dashboard"
+author: "Jim Clemens"
+date: "April 27, 2016"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    theme: spacelab
+    source_code: embed
+params:
+    stock1: AAPL
+    stock2: AMZN
+    stock3: IBM
+---
+
+```{r, results = "hide"}
+library(quantmod)
+library(dygraphs)
+library(DT)
+library(flexdashboard)
+library(formattable)
+
+priceHistory1 <- getSymbols(params$stock1, auto.assign = FALSE)
+priceHistory2 <- getSymbols(params$stock2, auto.assign = FALSE)
+priceHistory3 <- getSymbols(params$stock3, auto.assign = FALSE)
+```
+
+`r params$stock1` Trading History {data-orientation=rows}
+======================================
+
+Row {data-height=180}
+-----------------------------------------------------------------------
+### Highest Close {.value-box data-icon="fa-arrow-circle-o-up"}
+```{r}
+valueBox(currency(max(Cl(priceHistory1)), format = "d"))
+```
+
+### Lowest Close {.value-box data-icon="fa-arrow-circle-o-down"}
+
+```{r}
+valueBox(currency(min(Cl(priceHistory1)), format = "d"))
+```
+
+Row {data-height=200, .tabset}
+-----------------------------------------------------------------------
+### Closing Price
+```{r}
+dygraph(Cl(priceHistory1))
+```
+
+### Volume
+```{r}
+dygraph(Vo(priceHistory1))
+```
+
+Row
+-----------------------------------------------------------------------
+### Trading Detail
+```{r}
+datatable(as.data.frame(priceHistory1))
+```
+
+`r params$stock2` Trading History {data-orientation=rows}
+======================================
+
+Row {data-height=180}
+-----------------------------------------------------------------------
+### Highest Close {.value-box data-icon="fa-arrow-circle-o-up"}
+```{r}
+valueBox(currency(max(Cl(priceHistory2)), format = "d"))
+```
+
+### Lowest Close {.value-box data-icon="fa-arrow-circle-o-down"}
+
+```{r}
+valueBox(currency(min(Cl(priceHistory2)), format = "d"))
+```
+
+Row {data-height=200, .tabset}
+-----------------------------------------------------------------------
+### Closing Price
+```{r}
+dygraph(Cl(priceHistory2))
+```
+
+### Volume
+```{r}
+dygraph(Vo(priceHistory2))
+```
+
+Row
+-----------------------------------------------------------------------
+### Trading Detail
+```{r}
+datatable(as.data.frame(priceHistory2))
+```
+
+`r params$stock3` Trading History {data-orientation=rows}
+======================================
+
+Row {data-height=180}
+-----------------------------------------------------------------------
+### Highest Close {.value-box data-icon="fa-arrow-circle-o-up"}
+```{r}
+valueBox(currency(max(Cl(priceHistory3)), format = "d"))
+```
+
+### Lowest Close {.value-box data-icon="fa-arrow-circle-o-down"}
+
+```{r}
+valueBox(currency(min(Cl(priceHistory3)), format = "d"))
+```
+
+Row {data-height=200, .tabset}
+-----------------------------------------------------------------------
+### Closing Price
+```{r}
+dygraph(Cl(priceHistory3))
+```
+
+### Volume
+```{r}
+dygraph(Vo(priceHistory3))
+```
+
+Row
+-----------------------------------------------------------------------
+### Trading Detail
+```{r}
+datatable(as.data.frame(priceHistory3))
+```
+
